@@ -77,23 +77,20 @@ public class PieceUtil {
         int tempX;
         int tempY;
 
-        //上
+        // 上
         count = 0;
         for (int i = y-1; i >= 1; i--) {
             count++;
             Cell top = ComponentUtil.CELLS_MAP.get(i + "-" + x);
+
             if(top==null)break;
-            if (top.type == 1 && count == 1) {
+
+            if( top.type == 1 || top.type == 4 ) {
                 break;
-            }
-            if (top.type == 4 && count == 1) {
-                break;
-            }
-            if (count == 1 && top.type == ComponentUtil.CURRENT_PIECE_COLOR) {
-                break;
-            }
-            if (count > 1 && top.type == ComponentUtil.CURRENT_PIECE_COLOR) {
-                flagTop = true;
+            } else if( top.type == ComponentUtil.CURRENT_PIECE_COLOR ) {
+                if( count > 1 ) {
+                    flagTop = true;
+                }
                 break;
             }
         }
@@ -105,17 +102,13 @@ public class PieceUtil {
             count++;
             Cell down = ComponentUtil.CELLS_MAP.get(i + "-" + x);
             if(down==null)break;
-            if (down.type == 1 && count == 1) {
+
+            if( down.type == 1 || down.type == 4 ) {
                 break;
-            }
-            if (down.type == 4 && count == 1) {
-                break;
-            }
-            if (count == 1 && down.type == ComponentUtil.CURRENT_PIECE_COLOR) {
-                break;
-            }
-            if (count > 1 && down.type == ComponentUtil.CURRENT_PIECE_COLOR) {
-                flagDown = true;
+            } else if( down.type == ComponentUtil.CURRENT_PIECE_COLOR ) {
+                if( count > 1 ) {
+                    flagDown = true;
+                }
                 break;
             }
         }
@@ -127,17 +120,12 @@ public class PieceUtil {
             count++;
             Cell left = ComponentUtil.CELLS_MAP.get(y + "-" + i);
             if(left==null)break;
-            if (left.type == 1 && count == 1) {
+            if( left.type == 1 || left.type == 4 ) {
                 break;
-            }
-            if (left.type == 4 && count == 1) {
-                break;
-            }
-            if (count == 1 && left.type == ComponentUtil.CURRENT_PIECE_COLOR) {
-                break;
-            }
-            if (count > 1 && left.type == ComponentUtil.CURRENT_PIECE_COLOR) {
-                flagLeft = true;
+            } else if( left.type == ComponentUtil.CURRENT_PIECE_COLOR ) {
+                if( count > 1 ) {
+                    flagLeft = true;
+                }
                 break;
             }
         }
@@ -149,17 +137,12 @@ public class PieceUtil {
             count++;
             Cell right = ComponentUtil.CELLS_MAP.get(y + "-" + i);
             if(right==null)break;
-            if (right.type == 1 && count == 1) {
+            if( right.type == 1 || right.type == 4 ) {
                 break;
-            }
-            if (right.type == 4 && count == 1) {
-                break;
-            }
-            if (count == 1 && right.type == ComponentUtil.CURRENT_PIECE_COLOR) {
-                break;
-            }
-            if (count > 1 && right.type == ComponentUtil.CURRENT_PIECE_COLOR) {
-                flagRight = true;
+            } else if( right.type == ComponentUtil.CURRENT_PIECE_COLOR ) {
+                if( count > 1 ) {
+                    flagRight = true;
+                }
                 break;
             }
         }
@@ -175,17 +158,12 @@ public class PieceUtil {
             tempY--;
             Cell rightTop = ComponentUtil.CELLS_MAP.get(tempY + "-" + tempX);
             if(rightTop==null)break;
-            if (rightTop.type == 1 && count == 1) {
+            if( rightTop.type == 1 || rightTop.type == 4 ) {
                 break;
-            }
-            if (rightTop.type == 4 && count == 1) {
-                break;
-            }
-            if (count == 1 && rightTop.type == ComponentUtil.CURRENT_PIECE_COLOR) {
-                break;
-            }
-            if (count > 1 && rightTop.type == ComponentUtil.CURRENT_PIECE_COLOR) {
-                flagRightTop = true;
+            } else if( rightTop.type == ComponentUtil.CURRENT_PIECE_COLOR ) {
+                if( count > 1 ) {
+                    flagRightTop = true;
+                }
                 break;
             }
         }
@@ -200,17 +178,12 @@ public class PieceUtil {
             tempY++;
             Cell rightDown = ComponentUtil.CELLS_MAP.get(tempY + "-" + tempX);
             if(rightDown==null)break;
-            if (rightDown.type == 1 && count == 1) {
+            if( rightDown.type == 1 || rightDown.type == 4 ) {
                 break;
-            }
-            if (rightDown.type == 4 && count == 1) {
-                break;
-            }
-            if (count == 1 && rightDown.type == ComponentUtil.CURRENT_PIECE_COLOR) {
-                break;
-            }
-            if (count > 1 && rightDown.type == ComponentUtil.CURRENT_PIECE_COLOR) {
-                flagRightDown = true;
+            } else if( rightDown.type == ComponentUtil.CURRENT_PIECE_COLOR ) {
+                if( count > 1 ) {
+                    flagRightDown = true;
+                }
                 break;
             }
         }
@@ -225,17 +198,12 @@ public class PieceUtil {
             tempY--;
             Cell leftTop = ComponentUtil.CELLS_MAP.get(tempY + "-" + tempX);
             if(leftTop==null)break;
-            if (leftTop.type == 1 && count == 1) {
+            if( leftTop.type == 1 || leftTop.type == 4 ) {
                 break;
-            }
-            if (leftTop.type == 4 && count == 1) {
-                break;
-            }
-            if (count == 1 && leftTop.type == ComponentUtil.CURRENT_PIECE_COLOR) {
-                break;
-            }
-            if (count > 1 && leftTop.type == ComponentUtil.CURRENT_PIECE_COLOR) {
-                flagLeftTop = true;
+            } else if( leftTop.type == ComponentUtil.CURRENT_PIECE_COLOR ) {
+                if( count > 1 ) {
+                    flagLeftTop = true;
+                }
                 break;
             }
         }
@@ -250,17 +218,12 @@ public class PieceUtil {
             tempY++;
             Cell leftDown = ComponentUtil.CELLS_MAP.get(tempY + "-" + tempX);
             if(leftDown==null)break;
-            if (leftDown.type == 1 && count == 1) {
+            if( leftDown.type == 1 || leftDown.type == 4 ) {
                 break;
-            }
-            if (leftDown.type == 4 && count == 1) {
-                break;
-            }
-            if (count == 1 && leftDown.type == ComponentUtil.CURRENT_PIECE_COLOR) {
-                break;
-            }
-            if (count > 1 && leftDown.type == ComponentUtil.CURRENT_PIECE_COLOR) {
-                flagLeftDown = true;
+            } else if( leftDown.type == ComponentUtil.CURRENT_PIECE_COLOR ) {
+                if( count > 1 ) {
+                    flagLeftDown = true;
+                }
                 break;
             }
         }
@@ -360,86 +323,77 @@ public class PieceUtil {
         int tempX;
         int tempY;
 
-        //上
+        // 上
         count = 0;
         for (int i = y-1; i >= 1; i--) {
             count++;
             Cell top = ComponentUtil.CELLS_MAP.get(i + "-" + x);
+
             if(top==null)break;
-            if (top.type == 1 && count == 1) {
+
+            if( top.type == 1 || top.type == 4 ) {
                 break;
-            }
-            if (top.type == 4 && count == 1) {
-                break;
-            }
-            if (count == 1 && top.type == ComponentUtil.CURRENT_PIECE_COLOR) {
-                break;
-            }
-            if (count > 1 && top.type == ComponentUtil.CURRENT_PIECE_COLOR) {
-                flagTop = true;
+            } else if( top.type == ComponentUtil.CURRENT_PIECE_COLOR ) {
+                if( count > 1 ) {
+                    flagTop = true;
+                }
                 break;
             }
         }
+
+
         //下
         count = 0;
         for (int i = y+1; i <= 8; i++) {
             count++;
             Cell down = ComponentUtil.CELLS_MAP.get(i + "-" + x);
             if(down==null)break;
-            if (down.type == 1 && count == 1) {
+
+            if( down.type == 1 || down.type == 4 ) {
                 break;
-            }
-            if (down.type == 4 && count == 1) {
-                break;
-            }
-            if (count == 1 && down.type == ComponentUtil.CURRENT_PIECE_COLOR) {
-                break;
-            }
-            if (count > 1 && down.type == ComponentUtil.CURRENT_PIECE_COLOR) {
-                flagDown = true;
+            } else if( down.type == ComponentUtil.CURRENT_PIECE_COLOR ) {
+                if( count > 1 ) {
+                    flagDown = true;
+                }
                 break;
             }
         }
+
+
         //左
         count = 0;
         for (int i = x-1; i >= 1; i--) {
             count++;
             Cell left = ComponentUtil.CELLS_MAP.get(y + "-" + i);
             if(left==null)break;
-            if (left.type == 1 && count == 1) {
+            if( left.type == 1 || left.type == 4 ) {
                 break;
-            }
-            if (left.type == 4 && count == 1) {
-                break;
-            }
-            if (count == 1 && left.type == ComponentUtil.CURRENT_PIECE_COLOR) {
-                break;
-            }
-            if (count > 1 && left.type == ComponentUtil.CURRENT_PIECE_COLOR) {
-                flagLeft = true;
+            } else if( left.type == ComponentUtil.CURRENT_PIECE_COLOR ) {
+                if( count > 1 ) {
+                    flagLeft = true;
+                }
                 break;
             }
         }
+
+
         //右
         count = 0;
         for (int i = x+1; i <= 8; i++) {
             count++;
             Cell right = ComponentUtil.CELLS_MAP.get(y + "-" + i);
             if(right==null)break;
-            if (right.type == 1 && count == 1) {
+            if( right.type == 1 || right.type == 4 ) {
                 break;
-            }
-            if (right.type == 4 && count == 1) {
-                break;
-            }
-            if (count == 1 && right.type == ComponentUtil.CURRENT_PIECE_COLOR) {
-                break;
-            }
-            if (count > 1 && right.type == ComponentUtil.CURRENT_PIECE_COLOR) {
-                flagRight = true;
+            } else if( right.type == ComponentUtil.CURRENT_PIECE_COLOR ) {
+                if( count > 1 ) {
+                    flagRight = true;
+                }
                 break;
             }
         }
+
+
         //右上
         count = 0;
         tempX = x;
@@ -450,20 +404,16 @@ public class PieceUtil {
             tempY--;
             Cell rightTop = ComponentUtil.CELLS_MAP.get(tempY + "-" + tempX);
             if(rightTop==null)break;
-            if (rightTop.type == 1 && count == 1) {
+            if( rightTop.type == 1 || rightTop.type == 4 ) {
                 break;
-            }
-            if (rightTop.type == 4 && count == 1) {
-                break;
-            }
-            if (count == 1 && rightTop.type == ComponentUtil.CURRENT_PIECE_COLOR) {
-                break;
-            }
-            if (count > 1 && rightTop.type == ComponentUtil.CURRENT_PIECE_COLOR) {
-                flagRightTop = true;
+            } else if( rightTop.type == ComponentUtil.CURRENT_PIECE_COLOR ) {
+                if( count > 1 ) {
+                    flagRightTop = true;
+                }
                 break;
             }
         }
+
         //右下
         count = 0;
         tempX = x;
@@ -474,20 +424,16 @@ public class PieceUtil {
             tempY++;
             Cell rightDown = ComponentUtil.CELLS_MAP.get(tempY + "-" + tempX);
             if(rightDown==null)break;
-            if (rightDown.type == 1 && count == 1) {
+            if( rightDown.type == 1 || rightDown.type == 4 ) {
                 break;
-            }
-            if (rightDown.type == 4 && count == 1) {
-                break;
-            }
-            if (count == 1 && rightDown.type == ComponentUtil.CURRENT_PIECE_COLOR) {
-                break;
-            }
-            if (count > 1 && rightDown.type == ComponentUtil.CURRENT_PIECE_COLOR) {
-                flagRightDown = true;
+            } else if( rightDown.type == ComponentUtil.CURRENT_PIECE_COLOR ) {
+                if( count > 1 ) {
+                    flagRightDown = true;
+                }
                 break;
             }
         }
+
         //左上
         count = 0;
         tempX = x;
@@ -498,20 +444,16 @@ public class PieceUtil {
             tempY--;
             Cell leftTop = ComponentUtil.CELLS_MAP.get(tempY + "-" + tempX);
             if(leftTop==null)break;
-            if (leftTop.type == 1 && count == 1) {
+            if( leftTop.type == 1 || leftTop.type == 4 ) {
                 break;
-            }
-            if (leftTop.type == 4 && count == 1) {
-                break;
-            }
-            if (count == 1 && leftTop.type == ComponentUtil.CURRENT_PIECE_COLOR) {
-                break;
-            }
-            if (count > 1 && leftTop.type == ComponentUtil.CURRENT_PIECE_COLOR) {
-                flagLeftTop = true;
+            } else if( leftTop.type == ComponentUtil.CURRENT_PIECE_COLOR ) {
+                if( count > 1 ) {
+                    flagLeftTop = true;
+                }
                 break;
             }
         }
+
         //左下
         count = 0;
         tempX = x;
@@ -522,17 +464,12 @@ public class PieceUtil {
             tempY++;
             Cell leftDown = ComponentUtil.CELLS_MAP.get(tempY + "-" + tempX);
             if(leftDown==null)break;
-            if (leftDown.type == 1 && count == 1) {
+            if( leftDown.type == 1 || leftDown.type == 4 ) {
                 break;
-            }
-            if (leftDown.type == 4 && count == 1) {
-                break;
-            }
-            if (count == 1 && leftDown.type == ComponentUtil.CURRENT_PIECE_COLOR) {
-                break;
-            }
-            if (count > 1 && leftDown.type == ComponentUtil.CURRENT_PIECE_COLOR) {
-                flagLeftDown = true;
+            } else if( leftDown.type == ComponentUtil.CURRENT_PIECE_COLOR ) {
+                if( count > 1 ) {
+                    flagLeftDown = true;
+                }
                 break;
             }
         }
