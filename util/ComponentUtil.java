@@ -116,6 +116,12 @@ public class ComponentUtil {
         for(int i=1;i<=8;i++){
             for(int j=1;j<=8;j++){
                 Cell cell=new Cell(j* CommonConstant.cellLength,i*CommonConstant.cellLength);
+//                if(i == 1){
+//                    cell.type=2;
+//                }
+//                if(i == 2){
+//                    cell.type=3;
+//                }
                 if(i==4&&j==4){
                     cell.type=3;//1是空子，2是黑子，3是白子，4是蓝子
                 }

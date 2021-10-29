@@ -22,27 +22,11 @@ public class ClickPieceAction extends MouseListenerParent {
                  //正常模式执行逻辑
                  if(ComponentUtil.MODEL.equals("対戦モード")){
                      int type=ComponentUtil.CURRENT_PIECE_COLOR;
-                     if(type==2){
-                         //将格子中放置黑色棋子
-                         cell.type=2;
-                         //将中间的白色棋子变为黑
-                         PieceUtil.changePieceColor(cell);
-                     }else{
-                         //将格子中放置白色棋子
-                         cell.type=3;
-                         //将中间的黑色棋子变为白色
-                         PieceUtil.changePieceColor(cell);
-                     }
-                     PieceUtil.downPieceAfter(cell);
+                     PieceUtil.putPiece(cell, type);
                  }
                  //机器模式执行逻辑
                  else{
-                     //将格子中放置白色棋子
-                     cell.type=2;
-                     //将中间的白色棋子变为黑色
-                     PieceUtil.changePieceColor(cell);
-                     //落子之后的一些处理逻辑
-                     PieceUtil.downPieceAfter(cell);
+                     PieceUtil.putPiece(cell, 2);
                      new Thread(new Runnable() {
                          @Override
                          public void run() {
@@ -52,20 +36,18 @@ public class ClickPieceAction extends MouseListenerParent {
                              } catch (InterruptedException ex) {
                                  ex.printStackTrace();
                              }
-                             int size=ComponentUtil.CAN_USE_CELLS.size();
-                             int random=new Random().nextInt(size)+1;
-                             int count=0;
-                             for(Cell cell1:ComponentUtil.CAN_USE_CELLS){
-                                 count++;
-                                 if(count==random){
-                                     //将格子中放置白色棋子
-                                     cell1.type=3;
-                                     //将中间的黑色棋子变为白色
-                                     PieceUtil.changePieceColor(cell1);
-                                     //落子之后的一些处理逻辑
-                                     PieceUtil.downPieceAfter(cell1);
+                             Cell minPosCell = null;
+                             int minPosCellNum = -1;
+                             for(Cell cell1 : ComponentUtil.CAN_USE_CELLS) {
+                                 if (ComponentUtil.CURRENT_PIECE_COLOR == 3){
+                                     int posCellNum = PieceUtil.checkPossibleCells(cell1, 3);
+                                 if (minPosCell == null || posCellNum < minPosCellNum) {
+                                     minPosCell = cell1;
+                                     minPosCellNum = posCellNum;
                                  }
                              }
+                             }                             
+                             PieceUtil.putPiece(minPosCell, 3);
                          }
                      }).start();
                  }

@@ -3,6 +3,7 @@ package piece.util;
 import piece.constant.CommonConstant;
 import piece.model.Cell;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -241,7 +242,7 @@ public class PieceUtil {
         }
     }
 
-    public static void downPieceAfter(Cell cell){
+    public static void showPieceInfo(Cell cell){
         //记录位置
         String name="";
         if(ComponentUtil.CURRENT_PIECE_COLOR==2){
@@ -281,14 +282,18 @@ public class PieceUtil {
         name+=i+" 行 ";
         name+=j+" 列 ";
         ComponentUtil.DETAILS.setText(name);
-        //将该棋子放入棋子集合中
-        ComponentUtil.PIECES.add(cell);
+    }
+
+    public static void changeTurn() {
         //清空可下棋子
         PieceUtil.clearGreenPiece();
         //将当前该下棋子颜色转换
         changeCurrentPieceColor();
         //重新计算课下棋子
         PieceUtil.countAndSaveGreenPiece();
+    }
+
+    public static void checkAfterChangeTurn() {
         //验证(该颜色)是否存在可下棋子
         if(ComponentUtil.CAN_USE_CELLS.size()==0){
             //验证是否结束
@@ -308,7 +313,7 @@ public class PieceUtil {
 
 
 
-    public static void changePieceColor(Cell cell) {
+    public static ArrayList<Cell> listColorChangePieces(Cell cell) {
         int x = cell.x / CommonConstant.cellLength;
         int y = cell.y / CommonConstant.cellLength;
         boolean flagTop = false;
@@ -474,7 +479,7 @@ public class PieceUtil {
             }
         }
 
-
+        ArrayList<Cell> PieceList = new ArrayList<Cell>();
         if(flagTop){
             count = 0;
             for (int i = y-1; i >= 1; i--) {
@@ -484,7 +489,8 @@ public class PieceUtil {
                 if (count > 1 && top.type == ComponentUtil.CURRENT_PIECE_COLOR) {
                     break;
                 }
-                top.type=ComponentUtil.CURRENT_PIECE_COLOR;
+                // top.type = ComponentUtil.CURRENT_PIECE_COLOR;
+                PieceList.add(top);
             }
         }
         if(flagDown){
@@ -496,7 +502,8 @@ public class PieceUtil {
                 if (count > 1 && down.type == ComponentUtil.CURRENT_PIECE_COLOR) {
                     break;
                 }
-                down.type=ComponentUtil.CURRENT_PIECE_COLOR;
+                // down.type = ComponentUtil.CURRENT_PIECE_COLOR;
+                PieceList.add(down);
             }
         }
         if(flagLeft){
@@ -508,7 +515,8 @@ public class PieceUtil {
                 if (count > 1 && left.type == ComponentUtil.CURRENT_PIECE_COLOR) {
                     break;
                 }
-                left.type=ComponentUtil.CURRENT_PIECE_COLOR;
+                // left.type = ComponentUtil.CURRENT_PIECE_COLOR;
+                PieceList.add(left);
             }
         }
         if(flagRight){
@@ -520,7 +528,8 @@ public class PieceUtil {
                 if (count > 1 && right.type == ComponentUtil.CURRENT_PIECE_COLOR) {
                     break;
                 }
-                right.type=ComponentUtil.CURRENT_PIECE_COLOR;
+                // right.type = ComponentUtil.CURRENT_PIECE_COLOR;
+                PieceList.add(right);
             }
         }
         if(flagRightTop){
@@ -536,7 +545,8 @@ public class PieceUtil {
                 if (count > 1 && rightTop.type == ComponentUtil.CURRENT_PIECE_COLOR) {
                     break;
                 }
-                rightTop.type=ComponentUtil.CURRENT_PIECE_COLOR;
+                // rightTop.type=ComponentUtil.CURRENT_PIECE_COLOR;
+                PieceList.add(rightTop);
             }
         }
         if(flagRightDown){
@@ -552,7 +562,8 @@ public class PieceUtil {
                 if (count > 1 && rightDown.type == ComponentUtil.CURRENT_PIECE_COLOR) {
                     break;
                 }
-                rightDown.type=ComponentUtil.CURRENT_PIECE_COLOR;
+                // rightDown.type=ComponentUtil.CURRENT_PIECE_COLOR;
+                PieceList.add(rightDown);
             }
         }
         if(flagLeftTop){
@@ -568,7 +579,8 @@ public class PieceUtil {
                 if (count > 1 && leftTop.type == ComponentUtil.CURRENT_PIECE_COLOR) {
                     break;
                 }
-                leftTop.type=ComponentUtil.CURRENT_PIECE_COLOR;
+                // leftTop.type=ComponentUtil.CURRENT_PIECE_COLOR;
+                PieceList.add(leftTop);
             }
         }
         if(flagLeftDown){
@@ -585,9 +597,18 @@ public class PieceUtil {
                     break;
                 }
                 leftDown.type=ComponentUtil.CURRENT_PIECE_COLOR;
+                PieceList.add(leftDown);
             }
         }
+        return PieceList;
     }
+
+    static void changePieceColor(ArrayList<Cell> PieceList, int type) {
+        for( Cell cell : PieceList ) {
+            cell.type = type;
+        }
+    }
+
     //判断坐标是否存在棋盘内
     public static Cell getCell(int x, int y) {
         //判断是否在棋盘内
@@ -612,5 +633,32 @@ public class PieceUtil {
         return cell;
     }
 
+    public static void putPiece(Cell cell, int type) {
+        cell.type = type;
+        ArrayList<Cell> pieceList = listColorChangePieces(cell);
+        changePieceColor(pieceList, type);
+        showPieceInfo(cell);
+        ComponentUtil.PIECES.add(cell);
+        changeTurn();
+        checkAfterChangeTurn();
+    }
 
+    public static int checkPossibleCells(Cell cell, int type) {
+        int rev_type = (type == 2) ? 3 : 2;
+        cell.type = type;
+        ArrayList<Cell> pieceList = listColorChangePieces(cell);
+        changePieceColor(pieceList, type);
+        ComponentUtil.PIECES.add(cell);
+        changeTurn();
+
+        int possibleCellsNum = ComponentUtil.CAN_USE_CELLS.size();
+
+        // backtrack
+        ComponentUtil.PIECES.remove(cell);
+        changePieceColor(pieceList, rev_type);
+        cell.type = 1;
+        changeTurn();
+
+        return possibleCellsNum;
+    }
 }
